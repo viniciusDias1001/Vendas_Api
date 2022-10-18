@@ -1,9 +1,8 @@
-package com.SpringBoot.demo.repository;
+package com.SpringBoot.demo.domain.entidades.repository;
 
-import com.SpringBoot.demo.entidades.Cliente;
-import com.SpringBoot.demo.entidades.Pedido;
+import com.SpringBoot.demo.domain.entidades.Cliente;
+import com.SpringBoot.demo.domain.entidades.Pedido;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 

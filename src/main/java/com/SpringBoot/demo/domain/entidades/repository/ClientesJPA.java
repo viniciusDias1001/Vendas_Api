@@ -1,6 +1,6 @@
-package com.SpringBoot.demo.repository;
+package com.SpringBoot.demo.domain.entidades.repository;
 
-import com.SpringBoot.demo.entidades.Cliente;
+import com.SpringBoot.demo.domain.entidades.Cliente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
