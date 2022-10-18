@@ -2,6 +2,8 @@ package com.SpringBoot.demo.domain.entidades;
 
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -17,15 +19,21 @@ public class Cliente {
     @Column(name = "nome", length = 100)
     private String nome;
 
+    @Column(name = "cpf", length = 11)
+    private String cpf;
+
     @OneToMany(mappedBy = "cliente")
+    @JsonIgnore
     private Set<Pedido> pedidos;
+
 
     public Cliente() {
     }
 
-    public Cliente(Integer id, String nome)  {
+    public Cliente(Integer id, String nome, String cpf)  {
         this.id = id;
         this.nome = nome;
+        this.cpf = cpf;
 
 
     }
@@ -60,11 +68,20 @@ public class Cliente {
         this.pedidos = pedidos;
     }
 
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
     @Override
     public String toString() {
-        return "Cliente: " + "\n" +
-                "id: " + id + " \n" +
-                "nome ='" + nome + '\n'
-                ;
+        return "Cliente{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", cpf='" + cpf + '\'' +
+                '}';
     }
 }
