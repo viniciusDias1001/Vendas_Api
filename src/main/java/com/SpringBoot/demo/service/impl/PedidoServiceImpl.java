@@ -5,6 +5,7 @@ import com.SpringBoot.demo.domain.entidades.Cliente;
 import com.SpringBoot.demo.domain.entidades.ItemPedido;
 import com.SpringBoot.demo.domain.entidades.Pedido;
 import com.SpringBoot.demo.domain.entidades.Produto;
+import com.SpringBoot.demo.domain.entidades.enums.StatusPedido;
 import com.SpringBoot.demo.domain.entidades.repository.Clientes;
 import com.SpringBoot.demo.domain.entidades.repository.ItemsPedido;
 import com.SpringBoot.demo.domain.entidades.repository.Pedidos;
@@ -17,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -46,12 +48,20 @@ public class PedidoServiceImpl implements PedidoService {
         pedido.setTotal(dto.getTotal());
         pedido.setDataPedido(LocalDate.now());
         pedido.setCliente(cliente);
+        pedido.setStatus(StatusPedido.CONFIRMADO_E_REALIZADO);
 
         List<ItemPedido> itemsPedido = converterItems(pedido, dto.getItems());
         repository.save(pedido);
         itemsPedidoRepository.saveAll(itemsPedido);
         pedido.setItens(itemsPedido);
         return pedido;
+    }
+
+    @Override
+    @Transactional
+    public Optional<Pedido> obterPedidoCompleto(Integer id) {
+        return  repository.findByIdFetchItens(id);
+
     }
 
     private List<ItemPedido> converterItems(Pedido pedido, List<ItemPedidoDTO> items){
