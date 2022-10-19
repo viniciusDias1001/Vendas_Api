@@ -3,7 +3,9 @@ package com.SpringBoot.demo.domain.entidades;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+
 
 @Entity
 @Table(name = "pedido")
@@ -26,14 +28,6 @@ public class Pedido {
 
     @OneToMany(mappedBy = "pedido")
     private List<ItemPedido> itens;
-
-    public List<ItemPedido> getItens() {
-        return itens;
-    }
-
-    public void setItens(List<ItemPedido> itens) {
-        this.itens = itens;
-    }
 
     public Integer getId() {
         return id;
@@ -67,12 +61,24 @@ public class Pedido {
         this.total = total;
     }
 
+    public List<ItemPedido> getItens() {
+        return itens;
+    }
+
+    public void setItens(List<ItemPedido> itens) {
+        this.itens = itens;
+    }
+
     @Override
     public String toString() {
         return "Pedido{" +
                 "id=" + id +
+                ", cliente=" + cliente +
                 ", dataPedido=" + dataPedido +
                 ", total=" + total +
+                ", itens=" + itens +
                 '}';
     }
+
+
 }
