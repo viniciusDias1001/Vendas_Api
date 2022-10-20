@@ -1,5 +1,6 @@
 package com.SpringBoot.demo.service.impl;
 
+import com.SpringBoot.demo.Exception.PedidoNaoEncontradoException;
 import com.SpringBoot.demo.Exception.RegraNegocioException;
 import com.SpringBoot.demo.domain.entidades.Cliente;
 import com.SpringBoot.demo.domain.entidades.ItemPedido;
@@ -61,6 +62,16 @@ public class PedidoServiceImpl implements PedidoService {
     @Transactional
     public Optional<Pedido> obterPedidoCompleto(Integer id) {
         return  repository.findByIdFetchItens(id);
+
+    }
+
+    @Override
+    @Transactional
+    public void atualizaStatus(Integer id, StatusPedido statusPedido) {
+        repository.findById(id).map(c-> {
+            c.setStatus(statusPedido);
+            return repository.save(c);
+        }).orElseThrow(() -> new PedidoNaoEncontradoException());
 
     }
 

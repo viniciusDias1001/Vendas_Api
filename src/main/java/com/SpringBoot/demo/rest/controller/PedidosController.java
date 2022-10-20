@@ -3,6 +3,8 @@ package com.SpringBoot.demo.rest.controller;
 import com.SpringBoot.demo.Exception.RegraNegocioException;
 import com.SpringBoot.demo.domain.entidades.ItemPedido;
 import com.SpringBoot.demo.domain.entidades.Pedido;
+import com.SpringBoot.demo.domain.entidades.enums.StatusPedido;
+import com.SpringBoot.demo.rest.controller.dto.AtualizacaoStatusPedidoDTO;
 import com.SpringBoot.demo.rest.controller.dto.InformacoesItemPedidosDTO;
 import com.SpringBoot.demo.rest.controller.dto.InformacoesPedidosDTO;
 import com.SpringBoot.demo.rest.controller.dto.PedidoDTO;
@@ -10,12 +12,14 @@ import com.SpringBoot.demo.service.PedidoService;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.HttpStatus.NO_CONTENT;
 
 @RestController
 @RequestMapping("/api/pedidos")
@@ -29,7 +33,7 @@ public class PedidosController {
 
     @PostMapping
     @ResponseStatus(CREATED)
-    public Integer save( @RequestBody PedidoDTO dto ){
+    public Integer save( @Valid @RequestBody PedidoDTO dto ){
         Pedido pedido = service.salvar(dto);
         return pedido.getId();
     }
@@ -38,6 +42,14 @@ public class PedidosController {
     public InformacoesPedidosDTO getById(@PathVariable Integer id){
        return service.obterPedidoCompleto(id).map(pedido -> converter(pedido)).orElseThrow(() -> new RegraNegocioException("Pedido não Encontrado"));
 
+    }
+
+    @PatchMapping("/{id}")
+    @ResponseStatus(NO_CONTENT)
+    public  void updateStatus(@PathVariable Integer id,@RequestBody AtualizacaoStatusPedidoDTO atualizacaoStatusPedidoDTO){
+
+        String novoStatus = atualizacaoStatusPedidoDTO.getNovoStatus();
+          service.atualizaStatus(id,StatusPedido.valueOf(novoStatus));
     }
 
     private InformacoesPedidosDTO converter(Pedido pedido){

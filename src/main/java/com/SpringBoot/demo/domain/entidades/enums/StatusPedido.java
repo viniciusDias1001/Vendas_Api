@@ -3,6 +3,6 @@ package com.SpringBoot.demo.domain.entidades.enums;
 public enum StatusPedido {
 
     CANCELADO,
-    CONFIRMADOE_REALIZADO;
+    CONFIRMADO_E_REALIZADO;
 
 }
