@@ -7,6 +7,9 @@ import com.SpringBoot.demo.rest.controller.dto.TokenDTO;
 import com.SpringBoot.demo.security.jwt.JwtAuthFilte;
 import com.SpringBoot.demo.security.jwt.JwtService;
 import com.SpringBoot.demo.service.impl.UsuarioServiceImpl;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -34,12 +37,18 @@ public class UsuarioController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @ApiOperation("Salvar um Novo Usuario")
+    @ApiResponses({
+            @ApiResponse(code = 201, message = "Usuario salvo com sucesso"),
+            @ApiResponse(code = 400,message = "Erro de validação, Observe o Json e veja se está tudo ok, ou está faltando algo.")
+    })
     public Usuario salvar( @RequestBody @Valid Usuario usuario ){
         String senhaCriptografada = passwordEncoder.encode(usuario.getSenha());
         usuario.setSenha(senhaCriptografada);
         return usuarioService.salvar(usuario);
     }
     @PostMapping("/auth")
+    @ApiOperation("Autenticar um Usuario. Para receber seu Token")
     public TokenDTO autenticar(@RequestBody CredenciaisDTO credenciais){
         try{
             Usuario usuario = new Usuario();

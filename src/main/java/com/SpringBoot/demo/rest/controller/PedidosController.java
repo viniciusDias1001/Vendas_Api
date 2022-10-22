@@ -9,6 +9,7 @@ import com.SpringBoot.demo.rest.controller.dto.InformacoesItemPedidosDTO;
 import com.SpringBoot.demo.rest.controller.dto.InformacoesPedidosDTO;
 import com.SpringBoot.demo.rest.controller.dto.PedidoDTO;
 import com.SpringBoot.demo.service.PedidoService;
+import io.swagger.annotations.*;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,6 +24,7 @@ import static org.springframework.http.HttpStatus.NO_CONTENT;
 
 @RestController
 @RequestMapping("/api/pedidos")
+@Api("Api Pedidos")
 public class PedidosController {
 
     private PedidoService service;
@@ -33,20 +35,35 @@ public class PedidosController {
 
     @PostMapping
     @ResponseStatus(CREATED)
+    @ApiOperation("Fazer um novo Pedido")
+    @ApiResponses({
+            @ApiResponse(code = 201, message = "Pedido feito com sucesso"),
+            @ApiResponse(code = 400,message = "Erro de validação, Observe o Json e veja se está tudo ok, ou está faltando algo.")
+    })
     public Integer save( @Valid @RequestBody PedidoDTO dto ){
         Pedido pedido = service.salvar(dto);
         return pedido.getId();
     }
 
     @GetMapping("/{id}")
-    public InformacoesPedidosDTO getById(@PathVariable Integer id){
+    @ApiOperation("Buscar Pedido por ID")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Busca feita com sucesso"),
+            @ApiResponse(code = 404,message = "Pedido não encontrado no nosso DataBase, para o ID informado.")
+    })
+    public InformacoesPedidosDTO getById(@PathVariable @ApiParam("Id do Pedido") Integer id){
        return service.obterPedidoCompleto(id).map(pedido -> converter(pedido)).orElseThrow(() -> new RegraNegocioException("Pedido não Encontrado"));
 
     }
 
     @PatchMapping("/{id}")
     @ResponseStatus(NO_CONTENT)
-    public  void updateStatus(@PathVariable Integer id,@RequestBody AtualizacaoStatusPedidoDTO atualizacaoStatusPedidoDTO){
+    @ApiOperation("Atualizar Informações do Pedido")
+    @ApiResponses({
+            @ApiResponse(code = 204, message = "Pedido Atualizado com sucesso"),
+            @ApiResponse(code = 404,message = "Pedido não encontrado no nosso DataBase, para o ID informado.")
+    })
+    public  void updateStatus(@PathVariable  @ApiParam("Id do Pedido") Integer id,@RequestBody AtualizacaoStatusPedidoDTO atualizacaoStatusPedidoDTO){
 
         String novoStatus = atualizacaoStatusPedidoDTO.getNovoStatus();
           service.atualizaStatus(id,StatusPedido.valueOf(novoStatus));
