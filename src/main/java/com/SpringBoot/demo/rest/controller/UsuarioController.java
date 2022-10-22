@@ -48,7 +48,7 @@ public class UsuarioController {
         return usuarioService.salvar(usuario);
     }
     @PostMapping("/auth")
-    @ApiOperation("Autenticar um Usuario. Para receber seu Token")
+    @ApiOperation("Autenticar um Usuario. Para receber seu Token (Bearer)")
     public TokenDTO autenticar(@RequestBody CredenciaisDTO credenciais){
         try{
             Usuario usuario = new Usuario();
