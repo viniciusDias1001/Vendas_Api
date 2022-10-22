@@ -40,7 +40,7 @@ public class PedidosController {
             @ApiResponse(code = 201, message = "Pedido feito com sucesso"),
             @ApiResponse(code = 400,message = "Erro de validação, Observe o Json e veja se está tudo ok, ou está faltando algo.")
     })
-    public Integer save( @Valid @RequestBody PedidoDTO dto ){
+    public Integer save( @RequestBody @Valid PedidoDTO dto ){
         Pedido pedido = service.salvar(dto);
         return pedido.getId();
     }
