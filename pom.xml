@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.SpringBoot</groupId>
-	<artifactId>demo</artifactId>
+	<artifactId>Api_Rest_SpringBoot</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>CursoSpring</name>
+	<name>Fist_Api_Spring</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>17</java.version>
@@ -105,8 +105,19 @@
 			<version>2.10.5</version>
 		</dependency>
 
+<!--		<dependency>-->
+<!--			<groupId>org.springframework.boot</groupId>-->
+<!--			<artifactId>spring-boot-starter-tomcat</artifactId>-->
+<!--			<scope>provided</scope>-->
+<!--			<version>2.7.4</version>-->
+<!--		</dependency>-->
+
+
+
 
 	</dependencies>
+
+	<packaging>jar</packaging>
 
 	<build>
 		<plugins>
