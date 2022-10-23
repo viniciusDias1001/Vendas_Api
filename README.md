@@ -1,6 +1,6 @@
 # API-Spring-Boot-
 
-## Projeto Criado com apoio e base do Curso da Udemy Soring Boot Expert, que foi de grande avanço na minha trilha até me torna uma Desenvolvedor Java.
+## Projeto Criado com apoio e base do Curso da Udemy Spring Boot Expert, que foi de grande avanço na minha trilha até me torna uma Desenvolvedor Java.
 
 
 
