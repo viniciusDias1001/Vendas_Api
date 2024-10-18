@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.SpringBoot</groupId>
-	<artifactId>Api_Rest_SpringBoot</artifactId>
+	<artifactId>Api_Rest_Vendinhas</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Fist_Api_Spring</name>
-	<description>Demo project for Spring Boot</description>
+	<name>Api DSC</name>
+	<description>Api para DSC</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>

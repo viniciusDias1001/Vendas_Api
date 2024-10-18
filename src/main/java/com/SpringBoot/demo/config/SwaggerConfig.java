@@ -30,16 +30,14 @@ public class SwaggerConfig {
 
 
     private ApiInfo apiInfo(){
-        return new ApiInfoBuilder().title("Vendas_Com_SpringBoot").contact(contact()).description("Essa é uma API feita com visão no estudo e no aprendizado. ").version("1.0").build();
+        return new ApiInfoBuilder().title("DSC Project").description("Essa é uma API feita com visão no estudo e no aprendizado. ").version("1.0").build();
     }
 
-    private Contact contact(){
-        return new Contact("Pedro Vinicius Barros","https://github.com/viniciusDias1001","pedrorochadias1001@gmail.com");
-    }
+
 
 
     public ApiKey apiKey(){
-        return new ApiKey("JWT","Authorization","header");
+        return new ApiKey("Bearer Token","Authorization","header");
     }
 
     private SecurityContext securityContext(){
